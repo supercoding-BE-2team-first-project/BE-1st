@@ -1,5 +1,6 @@
 package com.github.backend1st.repository.posts;
 
+import com.github.backend1st.repository.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class PostEntity {
     @Column(name = "comment_count", nullable = false, columnDefinition = "DEFAULT 0")
     private Integer commentCount;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }

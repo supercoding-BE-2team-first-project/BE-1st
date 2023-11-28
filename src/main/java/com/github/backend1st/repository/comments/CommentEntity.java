@@ -1,5 +1,7 @@
 package com.github.backend1st.repository.comments;
 
+import com.github.backend1st.repository.posts.PostEntity;
+import com.github.backend1st.repository.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +23,11 @@ public class CommentEntity {
     @Column(name = "create_at", nullable = false)
     private String createAt;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
-    @Column(name = "post_id")
-    private Integer postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private PostEntity postEntity;
 }

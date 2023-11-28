@@ -1,5 +1,7 @@
 package com.github.backend1st.repository.favorite;
 
+import com.github.backend1st.repository.posts.PostEntity;
+import com.github.backend1st.repository.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,9 +17,11 @@ public class FavoriteEntity {
     @Id @Column(name = "favorite_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer favoriteId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
-    @Column(name = "post_id")
-    private Integer postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private PostEntity postEntity;
 }

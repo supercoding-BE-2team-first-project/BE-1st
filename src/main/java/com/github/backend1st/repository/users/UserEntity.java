@@ -1,8 +1,12 @@
 package com.github.backend1st.repository.users;
 
+import com.github.backend1st.repository.posts.PostEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.catalina.User;
 import org.hibernate.annotations.ValueGenerationType;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,4 +25,8 @@ public class UserEntity {
 
     @Column(name = "password", length = 100, nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<PostEntity> postEntities;
+
 }

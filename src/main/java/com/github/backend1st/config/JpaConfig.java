@@ -18,7 +18,8 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.github.backend1st.repository.users"},
+        basePackages = {"com.github.backend1st.repository.users", "com.github.backend1st.repository.posts"
+                , "com.github.backend1st.repository.comments", "com.github.backend1st.repository.favorite"},
         entityManagerFactoryRef = "entityManagerFactoryBean1",
         transactionManagerRef = "tmJpa1"
 )
@@ -37,7 +38,8 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean1(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.github.backend1st.repository.users");
+        em.setPackagesToScan("com.github.backend1st.repository.users", "com.github.backend1st.repository.posts"
+                , "com.github.backend1st.repository.comments", "com.github.backend1st.repository.favorite");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

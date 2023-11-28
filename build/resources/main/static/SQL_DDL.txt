@@ -1,0 +1,37 @@
+CREATE DATABASE supercoding_1st;
+USE supercoding_1st;
+
+CREATE TABLE users(
+	user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE posts(
+	post_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    content LONGTEXT NOT NULL,
+    create_at DATETIME NOT NULL,
+    favorite_count INT NOT NULL DEFAULT 0,
+    comment_count INT NOT NULL DEFAULT 0,
+    user_id INT,
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE comments(
+	comment_id INT AUTO_INCREMENT PRIMARY KEY,
+    content TEXT NOT NULL,
+    create_at DATETIME NOT NULL,
+    user_id INT,
+    post_id INT,
+    FOREIGN KEY(user_id) REFERENCES users(user_id),
+    FOREIGN KEY(post_id) REFERENCES posts(post_id)
+);
+
+CREATE TABLE favorite(
+	user_id INT,
+    post_id INT,
+	FOREIGN KEY(user_id) REFERENCES users(user_id),
+    FOREIGN KEY(post_id) REFERENCES posts(post_id)
+);
+

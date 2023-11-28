@@ -11,14 +11,14 @@ import org.hibernate.annotations.ValueGenerationType;
 @NoArgsConstructor
 @Builder
 @Table(name = "users")
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "userId")
 public class UserEntity {
     @Id @Column(name = "user_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 100)
+    @Column(name = "password", length = 100, nullable = false)
     private String password;
 }

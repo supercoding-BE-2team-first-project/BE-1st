@@ -1,11 +1,13 @@
 package com.github.backend1st.repository.users;
 
 import com.github.backend1st.repository.posts.PostEntity;
-import jakarta.persistence.*;
+
 import lombok.*;
 import org.apache.catalina.User;
 import org.hibernate.annotations.ValueGenerationType;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity

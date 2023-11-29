@@ -11,4 +11,5 @@ import java.util.List;
 @Getter
 public class PostResponse {
     private List<Post> Posts;
+    private String name;
 }

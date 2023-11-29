@@ -1,14 +1,14 @@
+/*
 package com.github.backend1st.service;
 
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.posts.PostJpaRepository;
-import com.github.backend1st.repository.users.UserEntity;
 import com.github.backend1st.repository.users.UserJpaRepository;
 import com.github.backend1st.service.mapper.PostMapper;
 import com.github.backend1st.web.dto.Post;
-import com.github.backend1st.web.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PostService {
 
+    @Autowired
     private final PostJpaRepository postJpaRepository;
     private final UserJpaRepository userJpaRepository;
 
@@ -28,3 +29,4 @@ public class PostService {
         return postEntities.stream().map(PostMapper.INSTANCE::postEntityToPost).collect(Collectors.toList());
     }
 }
+*/

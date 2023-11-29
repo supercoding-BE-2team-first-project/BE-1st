@@ -1,39 +1,38 @@
 package com.github.backend1st.config.security;
 
-import com.github.backend1st.service.exceptions.NotAcceptException;
 import com.github.backend1st.web.filters.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.servlet.Filter;
 import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
       http.headers().frameOptions().sameOrigin()
               .and()
               .formLogin().disable()
-              .csrf().disable()
+              .csrf().disable()//실습위해 비활성화
               .cors().configurationSource(corsConfigurationSource())
               .and()
               .httpBasic().disable()
@@ -41,15 +40,21 @@ public class SecurityConfig {
               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
               .and()
               .authorizeRequests()
+              .antMatchers("/api/v1/user/logout-success").hasAnyRole("USER","ADMIN")//permitAll 이전에 위치해야 적용됨
               .antMatchers("/resources/static/**","/api/v1/user/*").permitAll()//로그인안한경우, 어드민, 유저 총 3가지경우
-              .antMatchers("/api/v1/posts/*").hasRole("ADMIN")//
+              .antMatchers("/api/v1/posts/*").hasRole("ADMIN")
               .and()
               .exceptionHandling()
               .authenticationEntryPoint(new CustomAuthenticationEntryPoint())//인증실패
               .accessDeniedHandler(new CustomerAccessDeniedHandler())
               .and()
+              .logout()
+              .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/user/logout"))
+              .logoutSuccessUrl("/api/v1/user/logout-success")//로그아웃
+              .invalidateHttpSession(true)//쿠키 제거
+              .and()
               .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-
+        logger.debug("Security configuration applied.");
         return http.build();
     }
     @Bean

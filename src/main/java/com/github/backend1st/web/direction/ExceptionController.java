@@ -16,7 +16,7 @@ public class ExceptionController {
 
     @GetMapping(value = "/entrypoint")
     public void entrypointException() {
-        throw new NotAcceptException( "인증 과정에서 에러");
+        throw new NotAcceptException( "로그인이 필요합니다.");
     }
 
     @GetMapping(value = "/access-denied")

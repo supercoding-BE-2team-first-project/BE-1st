@@ -42,4 +42,9 @@ public class SignUpLoginController {
         return "로그인에 성공 하였습니다.\n"+"로그인 이메일 : "+loginRequest.getEmail();
     }
 
+    @GetMapping("/logout-success")
+    public String logout(){
+        return "로그아웃 완료";
+    }
+
 }

@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     runtimeOnly 'mysql:mysql-connector-java:8.0.33'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -29,6 +30,17 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     //lombok사용
     compileOnly 'org.projectlombok:lombok'
+=======
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    compileOnly 'org.projectlombok:lombok'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+>>>>>>> 9ef8bf046ed965d394c82767e6055318110e9f21
     annotationProcessor 'org.projectlombok:lombok'
 
     //Test Lombok
@@ -42,6 +54,7 @@ dependencies {
     //JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+<<<<<<< HEAD
 
 
     //Swagger
@@ -66,6 +79,12 @@ dependencies {
 //    implementation 'org.springframework.security:spring-security-config:5.7.11'
 
 
+=======
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+>>>>>>> 9ef8bf046ed965d394c82767e6055318110e9f21
 }
 
 tasks.named('test') {

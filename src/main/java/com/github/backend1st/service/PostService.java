@@ -5,7 +5,6 @@ import com.github.backend1st.repository.posts.PostJpaRepository;
 import com.github.backend1st.repository.users.UserEntity;
 import com.github.backend1st.repository.users.UserJpaRepository;
 import com.github.backend1st.service.mapper.PostMapper;
-import com.github.backend1st.service.mapper.UserMapper;
 import com.github.backend1st.web.dto.Post;
 import com.github.backend1st.web.dto.User;
 import lombok.RequiredArgsConstructor;

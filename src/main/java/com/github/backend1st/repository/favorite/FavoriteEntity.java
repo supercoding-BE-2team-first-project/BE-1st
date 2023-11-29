@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "favorite")
-@EqualsAndHashCode(of = "favorite_id")
+@EqualsAndHashCode(of = "favoriteId")
 public class FavoriteEntity {
 
     @Id @Column(name = "favorite_id") @GeneratedValue(strategy = GenerationType.IDENTITY)

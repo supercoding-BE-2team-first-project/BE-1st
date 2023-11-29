@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="75bb0aa6-dae4-49af-9c46-14b9358e6a2b" name="변경" comment="로그아웃">
+      <change afterPath="$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/com/github/backend1st/service/mapper/PostMapperImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/comments/CommentEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/comments/CommentJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/favorite/FavoriteEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/favorite/FavoriteJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/posts/PostEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/posts/PostJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/users/UserJpaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/service/PostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/service/mapper/PostMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/web/controller/PostController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/web/dto/Post.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/web/dto/PostResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/web/dto/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/roles_user_roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/SQL_DDL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/static/SQL_DDL.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/backend1st/config/JpaConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/config/JpaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/users/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/backend1st/repository/users/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/SQL_DDL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/SQL_DDL.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;GuitarJangEE&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="b545e22f-14f9-49dd-a90c-a5f3b84f7cec" />
+        <option name="url" value="https://github.com/supercoding-BE-2team-first-project/BE-1st.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2Yl3zzytRJh0BgRixAOD9R3KQKQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "feature-sihu 병합 중",
+    "last_opened_file_path": "C:/Users/sihu/Documents/Development/super-coding-github/src/main/java/com/github/backend1st/web",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "라이브러리",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.github.backend1st.repository" />
+      <recent name="com.github.backend1st.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sihu\Documents\Development\super-coding-github\src\main\java\com\github\backend1st\web" />
+      <recent name="C:\Users\sihu\Documents\Development\super-coding-github\src\main\java\com\github\backend1st\config\security" />
+      <recent name="C:\Users\sihu\Documents\Development\super-coding-github\src\main\java\com\github\backend1st\repository\users\roles" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Backend1stApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="backend-1st.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.backend1st.Backend1stApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="75bb0aa6-dae4-49af-9c46-14b9358e6a2b" name="변경" comment="" />
+      <created>1701086604688</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701086604688</updated>
+      <workItem from="1701086605704" duration="2272000" />
+      <workItem from="1701090580657" duration="18752000" />
+      <workItem from="1701112200215" duration="992000" />
+      <workItem from="1701158976808" duration="1365000" />
+      <workItem from="1701161635515" duration="16134000" />
+      <workItem from="1701178858892" duration="2573000" />
+      <workItem from="1701182680044" duration="1353000" />
+      <workItem from="1701184041946" duration="4358000" />
+      <workItem from="1701188455381" duration="76000" />
+    </task>
+    <task id="LOCAL-00001" summary="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급">
+      <option name="closed" value="true" />
+      <created>1701110613965</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701110613965</updated>
+    </task>
+    <task id="LOCAL-00002" summary="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급">
+      <option name="closed" value="true" />
+      <created>1701160493758</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701160493758</updated>
+    </task>
+    <task id="LOCAL-00003" summary="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급">
+      <option name="closed" value="true" />
+      <created>1701161193300</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701161193300</updated>
+    </task>
+    <task id="LOCAL-00004" summary="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급">
+      <option name="closed" value="true" />
+      <created>1701252665039</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701252665039</updated>
+    </task>
+    <task id="LOCAL-00005" summary="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급">
+      <option name="closed" value="true" />
+      <created>1701252670794</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1701252670794</updated>
+    </task>
+    <task id="LOCAL-00006" summary="로그아웃">
+      <option name="closed" value="true" />
+      <created>1701263140759</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701263140759</updated>
+    </task>
+    <task id="LOCAL-00007" summary="로그아웃">
+      <option name="closed" value="true" />
+      <created>1701263778527</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701263778527</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="이메일, 비밀번호로 user 생성 &#10;로그인시 토큰 발급" />
+    <MESSAGE value="로그아웃" />
+    <option name="LAST_COMMIT_MESSAGE" value="로그아웃" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/backend1st/service/SignUpLoginService.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/backend1st/service/SignUpLoginService.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.github.backend1st.repository.users.UserEntity" memberName="userRoles" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="request" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

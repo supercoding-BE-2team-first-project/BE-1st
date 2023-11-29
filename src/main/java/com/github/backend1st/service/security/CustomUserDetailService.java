@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Primary
 @Service
@@ -27,8 +28,11 @@ public class CustomUserDetailService implements UserDetailsService {
                 .userId(userEntity.getUserId())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
-//                .authorities(Arrays.asList("USER"))//미구현
+                .authorities(userEntity.getUserRoles().stream()
+                        .map(rs->rs.getRoles())
+                        .map(r->r.getName()).collect(Collectors.toList()))
                 .build();
+
         return customUserDetails;
     }
 }

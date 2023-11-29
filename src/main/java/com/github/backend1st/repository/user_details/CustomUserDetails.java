@@ -18,12 +18,11 @@ public class CustomUserDetails implements UserDetails {
     private Integer userId;
     private String email;
     private String password;
-//    private List<String> authorities;
+    private List<String> authorities;//권한
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-//                authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
@@ -36,7 +35,7 @@ public class CustomUserDetails implements UserDetails {
         return this.email;
     }
 
-    @Override
+    @Override//옵션들
     public boolean isAccountNonExpired() {
         return true;
     }

@@ -3,13 +3,14 @@ package com.github.backend1st.config.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import javax.servlet.http.HttpServletRequest;
+
 
 import java.util.Arrays;
 import java.util.Base64;
@@ -29,7 +30,7 @@ public class JwtTokenProvider {
         return httpServletRequest.getHeader("TOKEN");//헤더이름 TOKEN
     }
     public boolean validateToken(String jwtToken) {
-        try{
+        try{//만료시간 확인 로직
             Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody();
             Date now = new Date();
             return claims.getExpiration().after(now);
@@ -37,12 +38,11 @@ public class JwtTokenProvider {
             return false;//유효기간이 이상하거나 다른문제가있으면 false
         }
     }
-    public String createToken(String email){
+    public String createToken(String email,List<String> roles){
         Claims claims = Jwts.claims()
                 .setSubject(email);
-
-        List<String> stringList = Arrays.asList("123","123");
-        claims.put("roles", stringList);
+//        List<String> stringList = Arrays.asList("123","123");
+        claims.put("roles", roles);
 
         Date now = new Date();
         return Jwts.builder()

@@ -36,3 +36,24 @@ CREATE TABLE favorite(
     FOREIGN KEY(post_id) REFERENCES posts(post_id)
 );
 
+CREATE TABLE user_principal(
+	user_principal_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE roles (
+	role_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE user_principal_roles (
+	user_principal_role_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_principal_id INT,
+    role_id INT,
+    FOREIGN KEY (user_principal_id) REFERENCES user_principal(user_principal_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+);
+

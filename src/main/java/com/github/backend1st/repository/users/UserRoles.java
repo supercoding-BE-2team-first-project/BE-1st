@@ -1,6 +1,6 @@
 package com.github.backend1st.repository.users;
 
-import com.github.backend1st.repository.users.roles.Roles;
+import com.github.backend1st.repository.users.roles.RolesEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,5 +25,5 @@ public class UserRoles {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    private Roles roles;
+    private RolesEntity rolesEntity;
 }

@@ -2,7 +2,7 @@ package com.github.backend1st.repository.comments;
 
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.users.UserEntity;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity

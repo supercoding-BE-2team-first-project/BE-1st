@@ -21,7 +21,7 @@ import java.util.Map;
         basePackages = {"com.github.backend1st.repository.users", "com.github.backend1st.repository.posts"
                 , "com.github.backend1st.repository.comments", "com.github.backend1st.repository.favorite"},
         entityManagerFactoryRef = "entityManagerFactoryBean1",
-        transactionManagerRef = "tmJpa1"
+        transactionManagerRef = "tmJpa"
 )
 public class JpaConfig {
 
@@ -54,7 +54,7 @@ public class JpaConfig {
         return em;
     }
 
-    @Bean(name = "tmJpa1")
+    @Bean(name = "tmJpa")
     public PlatformTransactionManager transactionManager1(DataSource dataSource) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactoryBean1(dataSource).getObject());

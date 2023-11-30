@@ -2,7 +2,7 @@ package com.github.backend1st.repository.favorite;
 
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.users.UserEntity;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Entity

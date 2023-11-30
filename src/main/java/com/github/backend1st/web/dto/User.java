@@ -2,6 +2,8 @@ package com.github.backend1st.web.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,4 +14,5 @@ public class User {
     private Integer userId;
     private String email;
     private String password;
+    private String regDate;
 }

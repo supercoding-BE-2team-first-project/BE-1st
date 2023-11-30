@@ -1,0 +1,12 @@
+package com.github.backend1st.repository.users.roles;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface RolesJpaRepository extends JpaRepository<RolesEntity, Integer> {
+
+    Optional<RolesEntity> findByName(String name);
+}

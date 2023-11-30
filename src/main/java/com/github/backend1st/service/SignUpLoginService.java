@@ -4,10 +4,10 @@ import com.github.backend1st.config.security.JwtTokenProvider;
 import com.github.backend1st.repository.user_details.CustomUserDetails;
 import com.github.backend1st.repository.users.UserEntity;
 import com.github.backend1st.repository.users.UserRoles;
-import com.github.backend1st.repository.users.UserRolesJpa;
-import com.github.backend1st.repository.users.UsersJpa;
-import com.github.backend1st.repository.users.roles.Roles;
-import com.github.backend1st.repository.users.roles.RolesJpa;
+import com.github.backend1st.repository.users.UserRolesJpaRepository;
+import com.github.backend1st.repository.users.UsersJpaRepository;
+import com.github.backend1st.repository.users.roles.RolesEntity;
+import com.github.backend1st.repository.users.roles.RolesJpaRepository;
 import com.github.backend1st.service.exceptions.NotAcceptException;
 import com.github.backend1st.service.exceptions.NotFoundException;
 import com.github.backend1st.service.mapper.UserMapper;
@@ -20,7 +20,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,27 +27,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SignUpLoginService {
-    private final UsersJpa usersJpa;
-    private final RolesJpa rolesJpa;
-    private final UserRolesJpa userRolesJpa;
+    private final UsersJpaRepository usersJpaRepository;
+    private final RolesJpaRepository rolesJpaRepository;
+    private final UserRolesJpaRepository userRolesJpaRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     public List<UserDTO> getAllUsers(){
-        List<UserEntity> userEntityList = usersJpa.findAll();
+        List<UserEntity> userEntityList = usersJpaRepository.findAll();
         return userEntityList.stream().map(UserMapper.INSTANCE::userEntityToUserDTO).collect(Collectors.toList());
     };
     public List<UserDTO> getAllUsersByAdmin(CustomUserDetails customUserDetails) {
-        List<UserEntity> userEntityList = usersJpa.findAll();
+        List<UserEntity> userEntityList = usersJpaRepository.findAll();
         return userEntityList.stream().map(UserMapper.INSTANCE::userEntityToUserDTO).collect(Collectors.toList());
     }
 
@@ -58,7 +55,7 @@ public class SignUpLoginService {
         String email = signUpRequest.getEmail();
         String password = signUpRequest.getPassword();
 
-        if(usersJpa.existsByEmail(email))return null;//이메일 같은게 존재할시 실패
+        if(usersJpaRepository.existsByEmail(email))return null;//이메일 같은게 존재할시 실패
 
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
@@ -66,13 +63,13 @@ public class SignUpLoginService {
                 .regDate(LocalDateTime.now())
                 .build();
         //유저네임 패스워드 등록, 기본 ROLE_USER
-        Roles roles = rolesJpa.findByName("ROLE_USER")//admin 로직 구현안함
+        RolesEntity rolesEntity = rolesJpaRepository.findByName("ROLE_USER")//admin 로직 구현안함
                 .orElseThrow(()-> new NotFoundException("DB에러"));
 
-        usersJpa.save(userEntity);
-        userRolesJpa.save(
+        usersJpaRepository.save(userEntity);
+        userRolesJpaRepository.save(
                 UserRoles.builder()
-                        .roles(roles)
+                        .rolesEntity(rolesEntity)
                         .userEntity(userEntity)
                         .build()
         );
@@ -90,10 +87,10 @@ public class SignUpLoginService {
         try{//email password 확인
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            UserEntity userEntity = usersJpa.findByEmail(email)
+            UserEntity userEntity = usersJpaRepository.findByEmail(email)
                     .orElseThrow(()->new InternalAuthenticationServiceException(email));
             List<String> roles = userEntity.getUserRoles()
-                    .stream().map((roleslist)->roleslist.getRoles())
+                    .stream().map((roleslist)->roleslist.getRolesEntity())
                     .map(role->role.getName()).collect(Collectors.toList());
 
             return jwtTokenProvider.createToken(email,roles);

@@ -13,7 +13,7 @@ VALUES
 	("i@gmail.com", "9DCC11363C75A8C8525C25EBDA01AF0EC390C481B278F44925F9DAA5A5279312"),
 	("j@gmail.com", "9DCC11363C75A8C8525C25EBDA01AF0EC390C481B278F44925F9DAA5A5279312");
 
-INSERT INTO posts(title, content, create_at, user_id)
+INSERT INTO postDTOS(title, content, create_at, user_id)
 VALUES
 	("첫 번째 게시물", "처음 써봐요" , "2023-11-27 13:00:00", 1),
 	("두 번째 게시물", "두번 써봐요" , "2023-11-27 20:00:00", 2),
@@ -25,3 +25,8 @@ VALUES
 	("첫 번째 댓글이예요.", "2023-11-27 14:00:00", 1, 1),
 	("두 번째 댓글이예요.", "2023-11-27 21:00:00", 3, 2),
 	("세 번째 댓글이예요.", "2023-11-27 22:00:00", 5, 3);
+
+INSERT INTO roles (role_id, name)
+VALUES
+    ("1", "ROLE_ADMIN"),
+    ("2", "ROLE_USER");

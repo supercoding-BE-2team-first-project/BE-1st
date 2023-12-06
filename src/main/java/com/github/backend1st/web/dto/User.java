@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 public class User {
     private Integer userId;
+    private String UserName;
     private String email;
     private String password;
     private String regDate;

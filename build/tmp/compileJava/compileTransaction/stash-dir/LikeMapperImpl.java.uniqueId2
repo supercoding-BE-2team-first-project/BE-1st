@@ -1,0 +1,60 @@
+package com.github.backend1st.service.mapper;
+
+import com.github.backend1st.repository.favorite.FavoriteEntity;
+import com.github.backend1st.repository.posts.PostEntity;
+import com.github.backend1st.repository.users.UserEntity;
+import com.github.backend1st.web.dto.LikeDTO;
+import javax.annotation.processing.Generated;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2023-12-06T12:07:08+0900",
+    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.1 (Oracle Corporation)"
+)
+public class LikeMapperImpl implements LikeMapper {
+
+    @Override
+    public LikeDTO FavoriteEntityToLike(FavoriteEntity favoriteEntity) {
+        if ( favoriteEntity == null ) {
+            return null;
+        }
+
+        LikeDTO likeDTO = new LikeDTO();
+
+        likeDTO.setUserId( favoriteEntityUserEntityUserId( favoriteEntity ) );
+        likeDTO.setPostId( favoriteEntityPostEntityPostId( favoriteEntity ) );
+        likeDTO.setFavoriteId( favoriteEntity.getFavoriteId() );
+
+        return likeDTO;
+    }
+
+    private Integer favoriteEntityUserEntityUserId(FavoriteEntity favoriteEntity) {
+        if ( favoriteEntity == null ) {
+            return null;
+        }
+        UserEntity userEntity = favoriteEntity.getUserEntity();
+        if ( userEntity == null ) {
+            return null;
+        }
+        Integer userId = userEntity.getUserId();
+        if ( userId == null ) {
+            return null;
+        }
+        return userId;
+    }
+
+    private Integer favoriteEntityPostEntityPostId(FavoriteEntity favoriteEntity) {
+        if ( favoriteEntity == null ) {
+            return null;
+        }
+        PostEntity postEntity = favoriteEntity.getPostEntity();
+        if ( postEntity == null ) {
+            return null;
+        }
+        Integer postId = postEntity.getPostId();
+        if ( postId == null ) {
+            return null;
+        }
+        return postId;
+    }
+}

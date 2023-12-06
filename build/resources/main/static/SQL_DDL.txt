@@ -44,7 +44,7 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE user_roles (
-	user_principal_role_id INT PRIMARY KEY AUTO_INCREMENT,
+	user_role_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     role_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),

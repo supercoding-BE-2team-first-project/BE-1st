@@ -50,6 +50,7 @@ public class SignUpLoginService {
 
     @Transactional(transactionManager = "tmJpa")
     public UserDTO signUp(SignUp signUpRequest) {
+        String userName = signUpRequest.getUserName();
         String email = signUpRequest.getEmail();
         String password = signUpRequest.getPassword();
 
@@ -64,6 +65,7 @@ public class SignUpLoginService {
 
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
+                .userName(userName)
                 .password(passwordEncoder.encode(password))//암호화
                 .regDate(LocalDateTime.now())
                 .username(signUpRequest.getUsername())

@@ -35,19 +35,19 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<PostDTO> register(@RequestBody PostDTO postDTO) {
+    public PostDTO register(@RequestBody PostDTO postDTO) {
         log.info("게시물 등록 요청: {}", postDTO);
         PostDTO registeredPost = postService.registerPost(postDTO);
         log.info("게시물 등록 성공: {}", registeredPost);
-        return new ResponseEntity<>(registeredPost, HttpStatus.CREATED);
+        return registeredPost;
     }
 
     @PutMapping("/posts/{post_id}")
-    public ResponseEntity<PostDTO> update(@PathVariable Integer post_id, @RequestBody PostDTO postDTO) {
+    public PostDTO update(@PathVariable Integer post_id, @RequestBody PostDTO postDTO) {
         log.info("게시물 수정 요청 postId:{}, {}", post_id, postDTO);
         PostDTO updatedPost = postService.updatePost(post_id, postDTO);
         log.info("게시물 수정 성공: {} ", updatedPost);
-        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+        return updatedPost;
     }
 
     @DeleteMapping("/posts/{post_id}")

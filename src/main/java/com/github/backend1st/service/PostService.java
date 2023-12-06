@@ -25,6 +25,12 @@ public class PostService {
         return postEntities.stream().map(PostMapper.INSTANCE::postEntityToPost).collect(Collectors.toList());
     }
 
+    public PostDTO findPostById(Integer post_id) {
+        PostEntity postEntity = postJpaRepository.findById(post_id)
+                .orElseThrow(() -> new NotFoundException("게시물을 찾을 수 없습니다. : postId " + post_id));
+        return PostMapper.INSTANCE.postEntityToPost(postEntity);
+    }
+
     public PostDTO registerPost(PostDTO postDTO) {
         log.info("게시물 등록 서비스: {}", postDTO);
         PostEntity postEntity = PostMapper.INSTANCE.postDTOToPostEntity(postDTO);
@@ -53,9 +59,5 @@ public class PostService {
         postJpaRepository.delete(existPost);
     }
 
-    public PostDTO findPostById(Integer post_id) {
-        PostEntity postEntity = postJpaRepository.findById(post_id)
-                .orElseThrow(() -> new NotFoundException("게시물을 찾을 수 없습니다. : postId " + post_id));
-        return PostMapper.INSTANCE.postEntityToPost(postEntity);
-    }
+
 }

@@ -4,9 +4,9 @@ import com.github.backend1st.service.PostService;
 import com.github.backend1st.web.dto.PostDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +24,36 @@ public class PostController {
         List<PostDTO> postDTOS = postService.findAllPost();
         log.info("get 성공");
         return postDTOS;
+    }
+
+    @GetMapping("/posts/{post_id}")
+    public PostDTO findPostById(@PathVariable Integer post_id) {
+        log.info("특정 게시물 조회 요청: {}", post_id);
+        PostDTO postDTO = postService.findPostById(post_id);
+        log.info("특정 게시물 조회 성공: {}", post_id);
+        return postDTO;
+    }
+
+    @PostMapping("/posts")
+    public ResponseEntity<PostDTO> register(@RequestBody PostDTO postDTO) {
+        log.info("게시물 등록 요청: {}", postDTO);
+        PostDTO registeredPost = postService.registerPost(postDTO);
+        log.info("게시물 등록 성공: {}", registeredPost);
+        return new ResponseEntity<>(registeredPost, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/posts/{post_id}")
+    public ResponseEntity<PostDTO> update(@PathVariable Integer post_id, @RequestBody PostDTO postDTO) {
+        log.info("게시물 수정 요청 postId:{}, {}", post_id, postDTO);
+        PostDTO updatedPost = postService.updatePost(post_id, postDTO);
+        log.info("게시물 수정 성공: {} ", updatedPost);
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/posts/{post_id}")
+    public void delete(@PathVariable Integer post_id) {
+        log.info("게시물 수정 요청 postId:{}", post_id);
+        postService.deletePost(post_id);
+        log.info("게시물 삭제 성공 postId:{}", post_id);
     }
 }

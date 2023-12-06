@@ -34,6 +34,8 @@ public class UserEntity {
     private String password;
     @Column(name = "reg_date")
     private LocalDateTime regDate;
+    @Column(name = "user_name")
+    private String username;
 
     @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)//양방향 관계에서 연결될 필드값
     private Collection<UserRoles> userRoles;//⬆️LAZY 설정시 proxy에러

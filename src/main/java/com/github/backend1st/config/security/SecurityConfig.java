@@ -40,9 +40,9 @@ public class SecurityConfig {
               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
               .and()
               .authorizeRequests()
-              .antMatchers("/api/v1/user/logout-success").hasAnyRole("USER","ADMIN")//permitAll 이전에 위치해야 적용됨
+              .antMatchers("/api/all").hasRole("ADMIN")
+              .antMatchers("/api/logout-success").hasAnyRole("USER","ADMIN")//permitAll 이전에 위치해야 적용됨
               .antMatchers("/resources/static/**","/api/*").permitAll()//로그인안한경우, 어드민, 유저 총 3가지경우
-              .antMatchers("/api/v1/posts/*").hasRole("ADMIN")
               .and()
               .exceptionHandling()
               .authenticationEntryPoint(new CustomAuthenticationEntryPoint())//인증실패

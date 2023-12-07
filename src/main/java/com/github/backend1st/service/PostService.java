@@ -26,8 +26,7 @@ public class PostService {
     }
 
     public PostDTO findPostById(Integer post_id) {
-        PostEntity postEntity = postJpaRepository.findById(post_id)
-                .orElseThrow(() -> new NotFoundException("게시물을 찾을 수 없습니다. : postId " + post_id));
+        PostEntity postEntity = postJpaRepository.findById(post_id).orElseThrow(() -> new NotFoundException("존재하지 않는 post_id: " + post_id));
         return PostMapper.INSTANCE.postEntityToPost(postEntity);
     }
 
@@ -58,6 +57,7 @@ public class PostService {
                 .orElseThrow(() -> new NotFoundException("게시물이 존재하지 않습니다. : postId " + post_id));
         postJpaRepository.delete(existPost);
     }
+
 
 
 }

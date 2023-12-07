@@ -17,8 +17,10 @@ import java.util.stream.Collectors;
 public class CustomUserDetails implements UserDetails {
     private Integer userId;
     private String email;
+    private String username;
     private String password;
     private List<String> authorities;//권한
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

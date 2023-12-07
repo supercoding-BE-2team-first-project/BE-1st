@@ -11,9 +11,7 @@ import com.github.backend1st.repository.users.roles.RolesJpaRepository;
 import com.github.backend1st.service.exceptions.NotAcceptException;
 import com.github.backend1st.service.exceptions.NotFoundException;
 import com.github.backend1st.service.mapper.UserMapper;
-import com.github.backend1st.web.dto.LoginDTO;
-import com.github.backend1st.web.dto.SignUp;
-import com.github.backend1st.web.dto.UserDTO;
+import com.github.backend1st.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,15 +50,25 @@ public class SignUpLoginService {
 
     @Transactional(transactionManager = "tmJpa")
     public UserDTO signUp(SignUp signUpRequest) {
+        String username = signUpRequest.getUsername();
         String email = signUpRequest.getEmail();
         String password = signUpRequest.getPassword();
 
-        if(usersJpaRepository.existsByEmail(email))return null;//이메일 같은게 존재할시 실패
+        if(usersJpaRepository.existsByEmail(email)||
+        usersJpaRepository.existsByUsername(signUpRequest.getUsername())){
+            UserDTO userDTO = new UserDTO();
+            userDTO.setMessage("같은 email 또는 username이 존재 합니다.");
+            userDTO.setUsername("실패");
+            userDTO.setEmail("실패");
+            return userDTO;//이메일또는 이름 같은게 존재할시 실패
+        }
 
         UserEntity userEntity = UserEntity.builder()
                 .email(email)
+                .username(username)
                 .password(passwordEncoder.encode(password))//암호화
                 .regDate(LocalDateTime.now())
+                .username(signUpRequest.getUsername())
                 .build();
         //유저네임 패스워드 등록, 기본 ROLE_USER
         RolesEntity rolesEntity = rolesJpaRepository.findByName("ROLE_USER")//admin 로직 구현안함
@@ -75,28 +83,37 @@ public class SignUpLoginService {
         );
 
         UserDTO createdUser = UserMapper.INSTANCE.userEntityToUserDTO(userEntity);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 - HH:mm");
-        createdUser.setCreatedDate(createdUser.getRegDate().format(dateTimeFormatter));
+        createdUser.setMessage("회원가입이 성공적으로 완료되었습니다.");
 
         return createdUser;
     }
 
-    public String login(LoginDTO loginRequest) {
-        String email = loginRequest.getEmail();
+    public LoginResponse login(LoginDTO loginRequest) {
+        String emailOrName = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         try{//email password 확인
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(emailOrName, password));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            UserEntity userEntity = usersJpaRepository.findByEmail(email)
-                    .orElseThrow(()->new InternalAuthenticationServiceException(email));
+
+            UserEntity userEntity = usersJpaRepository.findByEmailOrUsername(emailOrName, emailOrName)
+                    .orElseThrow(()->new InternalAuthenticationServiceException(emailOrName));
             List<String> roles = userEntity.getUserRoles()
                     .stream().map((roleslist)->roleslist.getRolesEntity())
                     .map(role->role.getName()).collect(Collectors.toList());
 
-            return jwtTokenProvider.createToken(email,roles);
+            String token = jwtTokenProvider.createToken(userEntity.getEmail(),roles);
+            LoginResponse loginResponse = new LoginResponse();
+            if(token!=null) {
+                loginResponse.setMessage("로그인이 성공적으로 완료되었습니다.");
+                loginResponse.setToken(token);
+                loginResponse.setUserId(userEntity.getUserId());
+                loginResponse.setUsername(userEntity.getUsername());
+            }else{loginResponse.setMessage("로그인 실패");}
+
+            return loginResponse;
 
         }catch (InternalAuthenticationServiceException e){//이메일 없을시 InternalAuthenticationServiceException 발생
-            throw new NotFoundException(e.getMessage());
+            throw new NotFoundException(e.getMessage()+" InternalAuthenticationService 발생");
         }catch (BadCredentialsException e) {
             throw new NotAcceptException("비밀번호가 틀립니다.");
         }
@@ -107,4 +124,14 @@ public class SignUpLoginService {
     }
 
 
+    public DuplicateResponse checkEmail(String email, String username) {
+        boolean duplicate = usersJpaRepository.existsByEmail(email);
+
+        DuplicateResponse duplicateResponse = new DuplicateResponse();
+        duplicateResponse.setDuplicate(duplicate);
+        if(duplicate)duplicateResponse.setMessage("사용자명 또는 이메일이 이미 사용 중입니다.");
+        else duplicateResponse.setMessage("사용 가능 합니다.");
+
+        return duplicateResponse;
+    }
 }

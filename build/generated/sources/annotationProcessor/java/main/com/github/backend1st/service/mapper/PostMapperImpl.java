@@ -31,24 +31,6 @@ public class PostMapperImpl implements PostMapper {
         return postDTO;
     }
 
-    @Override
-    public PostEntity postDTOToPostEntity(PostDTO postDTO) {
-        if ( postDTO == null ) {
-            return null;
-        }
-
-        PostEntity.PostEntityBuilder postEntity = PostEntity.builder();
-
-        postEntity.postId( postDTO.getPostId() );
-        postEntity.title( postDTO.getTitle() );
-        postEntity.content( postDTO.getContent() );
-        postEntity.createAt( postDTO.getCreateAt() );
-        postEntity.favoriteCount( postDTO.getFavoriteCount() );
-        postEntity.commentCount( postDTO.getCommentCount() );
-
-        return postEntity.build();
-    }
-
     private Integer postEntityUserEntityUserId(PostEntity postEntity) {
         if ( postEntity == null ) {
             return null;

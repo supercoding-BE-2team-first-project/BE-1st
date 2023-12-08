@@ -19,8 +19,6 @@ public interface PostMapper {
     @Mapping(source = "userEntity.userId", target = "userId")
     PostDTO postEntityToPost(PostEntity postEntity);
 
-
-
-    @Mapping(target = "userEntity", ignore = true)
+    @Mapping(source = "userId", target = "userEntity.userId")
     PostEntity postDTOToPostEntity(PostDTO postDTO);
 }

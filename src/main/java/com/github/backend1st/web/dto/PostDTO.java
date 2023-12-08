@@ -1,5 +1,8 @@
 package com.github.backend1st.web.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.github.backend1st.repository.users.UserEntity;
 import lombok.*;
 
 @Getter

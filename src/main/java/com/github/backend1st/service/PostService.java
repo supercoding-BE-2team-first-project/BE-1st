@@ -2,6 +2,9 @@ package com.github.backend1st.service;
 
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.posts.PostJpaRepository;
+import com.github.backend1st.repository.user_details.CustomUserDetails;
+import com.github.backend1st.repository.users.UserEntity;
+import com.github.backend1st.repository.users.UsersJpaRepository;
 import com.github.backend1st.service.exceptions.NotFoundException;
 import com.github.backend1st.service.mapper.PostMapper;
 import com.github.backend1st.web.dto.PostDTO;
@@ -19,9 +22,17 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostJpaRepository postJpaRepository;
-    public List<PostDTO> findAllPost() {
-        List<PostEntity> postEntities = postJpaRepository.findAll();
+
+    private final UsersJpaRepository usersJpaRepository;
+    public List<PostDTO> findAllPost(CustomUserDetails customUserDetails) {
+        UserEntity userEntity = usersJpaRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("userId: " + customUserDetails.getUserId() + " 일치하는 유저정보를 찾을 수 없습니다."));
+
+        List<PostEntity> postEntities = postJpaRepository.findAll().stream()
+                .filter(postEntity -> postEntity.getUserEntity().equals(userEntity)).collect(Collectors.toList());
         if (postEntities.isEmpty()) throw new NullPointerException("posts를 찾을 수 없습니다.");
+
+
         return postEntities.stream().map(PostMapper.INSTANCE::postEntityToPost).collect(Collectors.toList());
     }
 
@@ -30,10 +41,18 @@ public class PostService {
         return PostMapper.INSTANCE.postEntityToPost(postEntity);
     }
 
-    public PostDTO registerPost(PostDTO postDTO) {
+    public PostDTO registerPost(CustomUserDetails customUserDetails, PostDTO postDTO) {
         log.info("게시물 등록 서비스: {}", postDTO);
+        // 현재 로그인한 사용자의 정보를 가져옴
+        UserEntity currentUser = usersJpaRepository.findById(customUserDetails.getUserId())
+                .orElseThrow(() -> new NotFoundException("현재 사용자 정보를 찾을 수 없습니다."));
+
+        // PostDTO에 현재 사용자의 정보를 설정
+        postDTO.setUserId(currentUser.getUserId());
+
         PostEntity postEntity = PostMapper.INSTANCE.postDTOToPostEntity(postDTO);
         PostEntity save = postJpaRepository.save(postEntity);
+
         PostDTO savePost = PostMapper.INSTANCE.postEntityToPost(save);
         return savePost;
     }

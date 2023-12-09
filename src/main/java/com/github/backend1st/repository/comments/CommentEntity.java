@@ -1,20 +1,26 @@
 package com.github.backend1st.repository.comments;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.users.UserEntity;
 import javax.persistence.*;
 import lombok.*;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "commnets")
+@ToString
+@Builder
+@Entity
+@Table(name = "comments")
 @EqualsAndHashCode(of = "commentId")
 public class CommentEntity {
 
-    @Id @Column(name = "comment_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Integer commentId;
 
     @Column(name = "content", nullable = false)

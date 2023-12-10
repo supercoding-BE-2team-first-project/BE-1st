@@ -40,17 +40,17 @@ public class SecurityConfig {
               .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
               .and()
               .authorizeRequests()
-              .antMatchers("/api/v1/user/logout-success").hasAnyRole("USER","ADMIN")//permitAll 이전에 위치해야 적용됨
-              .antMatchers("/resources/static/**","/api/v1/user/*").permitAll()//로그인안한경우, 어드민, 유저 총 3가지경우
-              .antMatchers("/api/v1/posts/*").hasRole("ADMIN")
+              .antMatchers("/api/all").hasRole("ADMIN")
+              .antMatchers("/api/logout-success").hasAnyRole("USER","ADMIN")//permitAll 이전에 위치해야 적용됨
+              .antMatchers("/resources/static/**","/api/*").permitAll()//로그인안한경우, 어드민, 유저 총 3가지경우
               .and()
               .exceptionHandling()
               .authenticationEntryPoint(new CustomAuthenticationEntryPoint())//인증실패
               .accessDeniedHandler(new CustomerAccessDeniedHandler())
               .and()
               .logout()
-              .logoutRequestMatcher(new AntPathRequestMatcher("/api/v1/user/logout"))
-              .logoutSuccessUrl("/api/v1/user/logout-success")//로그아웃
+              .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+              .logoutSuccessUrl("/api/logout-success")//로그아웃
               .invalidateHttpSession(true)//쿠키 제거
               .and()
               .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

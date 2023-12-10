@@ -47,6 +47,7 @@ public class JpaConfig {
         dataSource.setPassword(dbPassword);
         dataSource.setDriverClassName(dbDriver);
         dataSource.setUrl(dbUrl);
+
         return dataSource;
     }
     @Bean

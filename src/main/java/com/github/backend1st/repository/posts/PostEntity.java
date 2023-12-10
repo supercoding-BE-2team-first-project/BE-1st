@@ -33,7 +33,7 @@ public class PostEntity {
     @Column(name = "comment_count", nullable = false, columnDefinition = "DEFAULT 0")
     private Integer commentCount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 }

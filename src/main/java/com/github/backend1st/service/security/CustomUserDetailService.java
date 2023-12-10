@@ -20,7 +20,7 @@ public class CustomUserDetailService implements UserDetailsService {
     private final UsersJpaRepository usersJpaRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity= usersJpaRepository.findByEmail(email)
+        UserEntity userEntity = usersJpaRepository.findByEmail(email)
                 .orElseThrow(()->new NotFoundException("\""+email+"\" 해당 이메일의 유저가 없습니다."));
 
         CustomUserDetails customUserDetails = CustomUserDetails.builder()

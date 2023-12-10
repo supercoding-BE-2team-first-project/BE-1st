@@ -1,10 +1,10 @@
 package com.github.backend1st.repository.comments;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.users.UserEntity;
 import javax.persistence.*;
+
+import com.github.backend1st.web.dto.CommentDto;
 import lombok.*;
 
 @Getter
@@ -36,4 +36,10 @@ public class CommentEntity {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private PostEntity postEntity;
+
+    public CommentEntity(CommentDto commentDto) {
+        this.content = commentDto.getContent();
+        this.userEntity.setUserId(Integer.valueOf(commentDto.getUserId()));
+        this.postEntity.setPostId(Integer.valueOf(commentDto.getPostId()));
+    }
 }

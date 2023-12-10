@@ -10,13 +10,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CommentDto {
+public class CommentPostDto {
 
-    private Integer commentId;
-    private String content;
-    private String createdAt;
+    private String message;
+    private String commentId;
     private String userId;
     private String postId;
+    private String content;
+    private String createdAt;
 
 }
-

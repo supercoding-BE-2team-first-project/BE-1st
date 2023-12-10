@@ -19,7 +19,7 @@ public class PostDTO {
     private String content;
     @ApiModelProperty(name="message", value = "메세지", example = "로그인에 성공하였습니다.")
     private String createAt;
-    
+
     private Integer favoriteCount;
     private Integer commentCount;
     private Integer userId;

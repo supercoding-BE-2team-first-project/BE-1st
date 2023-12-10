@@ -3,7 +3,7 @@ USE supercoding_1st;
 
 CREATE TABLE users(
 	user_id INT AUTO_INCREMENT PRIMARY KEY,
-	user_name VARCHAR(50) NOT NULL UNIQUE,
+	user_name VARCHAR(50) DEFAULT 'default_value',
     email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     reg_date DATETIME NOT NULL

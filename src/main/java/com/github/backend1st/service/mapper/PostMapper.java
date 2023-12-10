@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Optional;
+
 @Mapper
 public interface PostMapper {
 
@@ -16,4 +18,7 @@ public interface PostMapper {
 
     @Mapping(source = "userEntity.userId", target = "userId")
     PostDTO postEntityToPost(PostEntity postEntity);
+
+    @Mapping(source = "userId", target = "userEntity.userId")
+    PostEntity postDTOToPostEntity(PostDTO postDTO);
 }

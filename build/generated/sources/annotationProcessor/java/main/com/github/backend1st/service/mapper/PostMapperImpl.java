@@ -7,8 +7,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-07T17:29:04+0900",
-    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.2 (Oracle Corporation)"
+    date = "2023-12-08T16:21:55+0900",
+    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.8.1 (Eclipse Adoptium)"
 )
 public class PostMapperImpl implements PostMapper {
 
@@ -31,6 +31,25 @@ public class PostMapperImpl implements PostMapper {
         return postDTO;
     }
 
+    @Override
+    public PostEntity postDTOToPostEntity(PostDTO postDTO) {
+        if ( postDTO == null ) {
+            return null;
+        }
+
+        PostEntity.PostEntityBuilder postEntity = PostEntity.builder();
+
+        postEntity.userEntity( postDTOToUserEntity( postDTO ) );
+        postEntity.postId( postDTO.getPostId() );
+        postEntity.title( postDTO.getTitle() );
+        postEntity.content( postDTO.getContent() );
+        postEntity.createAt( postDTO.getCreateAt() );
+        postEntity.favoriteCount( postDTO.getFavoriteCount() );
+        postEntity.commentCount( postDTO.getCommentCount() );
+
+        return postEntity.build();
+    }
+
     private Integer postEntityUserEntityUserId(PostEntity postEntity) {
         if ( postEntity == null ) {
             return null;
@@ -44,5 +63,17 @@ public class PostMapperImpl implements PostMapper {
             return null;
         }
         return userId;
+    }
+
+    protected UserEntity postDTOToUserEntity(PostDTO postDTO) {
+        if ( postDTO == null ) {
+            return null;
+        }
+
+        UserEntity.UserEntityBuilder userEntity = UserEntity.builder();
+
+        userEntity.userId( postDTO.getUserId() );
+
+        return userEntity.build();
     }
 }

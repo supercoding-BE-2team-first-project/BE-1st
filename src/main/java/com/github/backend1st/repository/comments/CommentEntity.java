@@ -3,18 +3,24 @@ package com.github.backend1st.repository.comments;
 import com.github.backend1st.repository.posts.PostEntity;
 import com.github.backend1st.repository.users.UserEntity;
 import javax.persistence.*;
+
+import com.github.backend1st.web.dto.CommentDto;
 import lombok.*;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "commnets")
+@ToString
+@Builder
+@Entity
+@Table(name = "comments")
 @EqualsAndHashCode(of = "commentId")
 public class CommentEntity {
 
-    @Id @Column(name = "comment_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Integer commentId;
 
     @Column(name = "content", nullable = false)
@@ -30,4 +36,10 @@ public class CommentEntity {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private PostEntity postEntity;
+
+    public CommentEntity(CommentDto commentDto) {
+        this.content = commentDto.getContent();
+        this.userEntity.setUserId(Integer.valueOf(commentDto.getUserId()));
+        this.postEntity.setPostId(Integer.valueOf(commentDto.getPostId()));
+    }
 }

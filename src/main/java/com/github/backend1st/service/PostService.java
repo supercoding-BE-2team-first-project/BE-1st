@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,6 +74,9 @@ public class PostService {
 
         // PostDTO에 현재 사용자의 정보를 설정
         postDTO.setUserId(currentUser.getUserId());
+        postDTO.setFavoriteCount(0);
+        postDTO.setCommentCount(0);
+        postDTO.setCreateAt(String.valueOf(LocalDateTime.now()));
 
         PostEntity postEntity = PostMapper.INSTANCE.postDTOToPostEntity(postDTO);
         PostEntity save = postJpaRepository.save(postEntity);

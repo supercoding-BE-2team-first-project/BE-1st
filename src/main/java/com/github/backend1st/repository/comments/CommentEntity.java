@@ -7,6 +7,8 @@ import javax.persistence.*;
 import com.github.backend1st.web.dto.CommentDto;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,20 +28,21 @@ public class CommentEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "create_at", nullable = false)
-    private String createAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private PostEntity postEntity;
+    @Column(name = "user_id")
+    private String userId;
+
+    @Column(name = "post_id")
+    private String postId;
 
     public CommentEntity(CommentDto commentDto) {
         this.content = commentDto.getContent();
-        this.userEntity.setUserId(Integer.valueOf(commentDto.getUserId()));
-        this.postEntity.setPostId(Integer.valueOf(commentDto.getPostId()));
+        this.userId = commentDto.getUserId();
+        this.postId = commentDto.getPostId();
     }
 }

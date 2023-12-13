@@ -9,9 +9,7 @@ import com.github.backend1st.repository.users.UserEntity;
 import com.github.backend1st.repository.users.UsersJpaRepository;
 import com.github.backend1st.service.exceptions.NotFoundException;
 import com.github.backend1st.service.mapper.CommentMapper;
-import com.github.backend1st.service.mapper.PostMapper;
 import com.github.backend1st.web.dto.CommentDto;
-import com.github.backend1st.web.dto.CommentPostDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,7 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,9 +40,9 @@ public class CommentService {
         return commentEntities.stream().map(CommentMapper.INSTANCE::commentEntityToCommentDto).collect(Collectors.toList());
     }
 
-    public List<CommentDto> searchCommentById(String postId) {
-        Integer idInt = Integer.parseInt(postId);
-        List<CommentEntity> commentEntities = commentJpaRepository.findAllById(Collections.singleton(idInt));
+    public List<CommentDto> searchCommentByPostId(String postId) {
+        List<CommentEntity> commentEntities = commentJpaRepository.findAllByPostId(postId   );
+        System.out.println(commentEntities);
 
         if(commentEntities.isEmpty()) {
             throw new NotFoundException("No Comments!!");
@@ -62,38 +60,68 @@ public class CommentService {
     }
 
     @Transactional(transactionManager = "tmJpa")
-    public CommentPostDto registerComment(CustomUserDetails customUserDetails, CommentDto commentDto) {
-        Integer idInt = Integer.parseInt(commentDto.getUserId());
-
+    public CommentDto registerComment(CustomUserDetails customUserDetails, CommentDto commentDto) {
         // UserEntity userEntity = usersJpaRepository.findById(customUserDetails.getUserId())
-        UserEntity userEntity = usersJpaRepository.findById(idInt)
-                .orElseThrow(() -> new NotFoundException("현재 사용자 정보를 찾을 수 없습니다."));
+        UserEntity userEntity = usersJpaRepository.findById(Integer.parseInt(commentDto.getUserId()))
+                .orElseThrow(() -> new NotFoundException("일치하는 userId(" + commentDto.getUserId() + ")를 찾을 수 없습니다."));
+        PostEntity postEntity = postJpaRepository.findById(Integer.parseInt(commentDto.getPostId()))
+                .orElseThrow(() -> new NotFoundException("일치하는 postId(" + commentDto.getPostId() + ")를 찾을 수 없습니다."));
+
         commentDto.setUserId(String.valueOf(userEntity.getUserId()));
 
         CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setCommentId(commentDto.getCommentId());
-        commentEntity.getUserEntity().setUserId(Integer.valueOf(commentDto.getUserId()));
-        commentEntity.getPostEntity().setPostId(Integer.valueOf(commentDto.getPostId()));
+        commentEntity.setContent(commentDto.getContent());
+        commentEntity.setUserId(commentDto.getUserId());
+        commentEntity.setPostId(commentDto.getPostId());
+        commentEntity.setCreatedAt(LocalDateTime.now());
 
         CommentEntity saveComment = commentJpaRepository.save(commentEntity);
 
-        CommentPostDto commentPostDto = new CommentPostDto();
+        CommentDto commentPostDto = new CommentDto();
         commentPostDto.setMessage("댓글이 성공적으로 작성되었습니다.");
-        commentPostDto.setCommentId(String.valueOf(saveComment.getCommentId()));
-        commentPostDto.setUserId(String.valueOf(saveComment.getUserEntity().getUserId()));
-        commentPostDto.setPostId(String.valueOf(saveComment.getPostEntity().getPostId()));
+        commentPostDto.setCommentId(saveComment.getCommentId());
+        commentPostDto.setUserId(String.valueOf(saveComment.getUserId()));
+        commentPostDto.setPostId(String.valueOf(saveComment.getPostId()));
         commentPostDto.setContent(saveComment.getContent());
-        commentPostDto.setCreatedAt(saveComment.getCreateAt());
+        commentPostDto.setCreatedAt(String.valueOf(saveComment.getCreatedAt()));
 
         return commentPostDto;
     }
 
-    public CommentDto updateComment(CustomUserDetails customUserDetails, Integer commentId, CommentDto commentDto) {
-        return null;
+    @Transactional(transactionManager = "tmJpa")
+    public CommentDto updateComment(CustomUserDetails customUserDetails, String commentId, CommentDto commentDto) {
+        Integer commentIdInt = Integer.parseInt(commentId);
+        CommentEntity commentEntity = commentJpaRepository.findById(commentIdInt)
+                .orElseThrow(() -> new NotFoundException("일치하는 commentId(" + commentIdInt + ")를 찾을 수 없습니다."));
+
+        commentEntity.setCommentId(commentIdInt);
+        commentEntity.setContent(commentDto.getContent());
+        commentEntity.setUserId(commentDto.getUserId());
+        commentEntity.setPostId(commentDto.getPostId());
+        commentEntity.setUpdatedAt(LocalDateTime.now());
+
+        CommentDto commentUpdateDto = new CommentDto();
+        commentUpdateDto.setMessage("댓글이 성공적으로 수정되었습니다.");
+        commentUpdateDto.setCommentId(commentEntity.getCommentId());
+        commentUpdateDto.setUserId(String.valueOf(commentEntity.getUserId()));
+        commentUpdateDto.setPostId(String.valueOf(commentEntity.getPostId()));
+        commentUpdateDto.setContent(commentEntity.getContent());
+        commentUpdateDto.setUpdatedAt(String.valueOf(commentEntity.getUpdatedAt()));
+
+        return commentUpdateDto;
     }
 
-    public CommentDto deleteComment(CustomUserDetails customUserDetails, Integer commentId) {
-        return null;
+    public CommentDto deleteComment(CustomUserDetails customUserDetails, String commentId) {
+        Integer commentIdInt = Integer.parseInt(commentId);
+        CommentEntity commentEntity = commentJpaRepository.findById(commentIdInt)
+                .orElseThrow(() -> new NotFoundException("일치하는 commentId(" + commentIdInt + ")를 찾을 수 없습니다."));
+
+        commentJpaRepository.deleteById(commentIdInt);
+
+        CommentDto commentDeleteDto = new CommentDto();
+        commentDeleteDto.setMessage("댓글이 성공적으로 삭제되었습니다.");
+
+        return commentDeleteDto;
     }
 
 }
